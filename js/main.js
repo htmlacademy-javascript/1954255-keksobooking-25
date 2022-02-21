@@ -1,4 +1,4 @@
-const randomizer = (min ,max, numsAfterDot) => {
+const getRandom = (min ,max, numsAfterDot) => {
   if (min < max) {
     const int = Math.floor(Math.random() * (max - min)) + min;
     if (numsAfterDot > 0) {
@@ -15,4 +15,4 @@ const randomizer = (min ,max, numsAfterDot) => {
   }
 };
 
-randomizer(12, 32, 5);
+getRandom(12, 32, 5);
