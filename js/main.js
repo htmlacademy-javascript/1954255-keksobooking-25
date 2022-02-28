@@ -99,36 +99,26 @@ const getLocation = (type) => {
 };
 
 
-const getOneOffer = () => {
-  const likeObject = {
-    author: {avatar: getAvatar()},
-    offer: {
-      title: getTitle(),
-      address: [getLocation('lat'), getLocation('lng')],
-      price: getRandom(1, 130000, 0),
-      type: getType(),
-      rooms: getRandom(1, 15, 0),
-      guests: getRandom(1, 120, 0),
-      checkin: getTime(),
-      checkout: getTime(),
-      features: getFeatures(),
-      description: 'Красивые стены, очень много места!',
-      photos: getPhotos(),
-    },
-    location: {
-      lat: getLocation('lat'),
-      lng: getLocation('lng')
-    }
-  };
-  return likeObject;
-};
-
-const getLittleObjects = (count) => {
-  const objectsArray = [];
-  for (let i = 0; i < count; i++) {
-    objectsArray[i] = getOneOffer();
+const getOneOffer = () => ({
+  author: {avatar: getAvatar()},
+  offer: {
+    title: getTitle(),
+    address: [getLocation('lat'), getLocation('lng')],
+    price: getRandom(1, 130000, 0),
+    type: getType(),
+    rooms: getRandom(1, 15, 0),
+    guests: getRandom(1, 120, 0),
+    checkin: getTime(),
+    checkout: getTime(),
+    features: getFeatures(),
+    description: 'Красивые стены, очень много места!',
+    photos: getPhotos(),
+  },
+  location: {
+    lat: getLocation('lat'),
+    lng: getLocation('lng')
   }
-  return objectsArray;
-};
+});
 
-getLittleObjects(10);
+const getLittleOffer = (length) => Array.from({length: length}, getOneOffer);
+getLittleOffer(10);
