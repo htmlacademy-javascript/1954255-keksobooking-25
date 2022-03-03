@@ -1,2 +1,2 @@
-import 'offer-data.js';
-import 'offer-util.js';
+import './offer-data.js';
+import './offer-util.js';
