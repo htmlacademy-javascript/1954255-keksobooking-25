@@ -38,3 +38,15 @@ const minLatitude = 65000;
 const maxLatitude = 70000;
 const minLongitude = 70000;
 const maxLongitude = 80000;
+
+export {
+  titleArray,
+  typeMass,
+  timeMass,
+  featuresMass,
+  photoArray,
+  maxLongitude,
+  minLongitude,
+  maxLatitude,
+  minLatitude
+};

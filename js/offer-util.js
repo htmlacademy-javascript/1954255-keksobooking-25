@@ -1,3 +1,15 @@
+import {
+  titleArray,
+  typeMass,
+  timeMass,
+  featuresMass,
+  photoArray,
+  maxLongitude,
+  minLongitude,
+  maxLatitude,
+  minLatitude
+} from './offer-data.js';
+
 const getRandom = (min ,max, numsAfterDot) => {
   if (min < max) {
     const int = Math.floor(Math.random() * (max - min)) + min;
@@ -80,4 +92,5 @@ const getOneOffer = () => ({
 });
 
 const getLittleOffer = (length) => Array.from({length: length}, getOneOffer);
-getLittleOffer(10);
+console.log(getLittleOffer(10));
+
