@@ -30,5 +30,5 @@ const pageActivator = () => {
 };
 
 pageDeactivator();
-// pageActivator();
+pageActivator();
 
