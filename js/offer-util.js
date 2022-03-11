@@ -92,5 +92,7 @@ const getOneOffer = () => ({
 });
 
 const getLittleOffer = (length) => Array.from({length: length}, getOneOffer);
-console.log(getLittleOffer(10));
+
+export {getLittleOffer};
+
 
