@@ -6,6 +6,8 @@ const roomCount = adForm.querySelector('#room_number');
 const guestCount = adForm.querySelector('#capacity');
 const selectType = adForm.querySelector('select[name=type]');
 const priceInput = adForm.querySelector('input[name=price]');
+const departureTime = adForm.querySelector('#timein');
+const checkInTime = adForm.querySelector('#timeout');
 
 const errorNotification = () => {
   const errorTemplate = document.querySelector('#error').content;
@@ -63,6 +65,8 @@ adForm.addEventListener('submit', (evt) => {
       (selectType.value === 'house' && priceInput.value < 5000) ||
       (selectType.value === 'palace' && priceInput.value < 10000)) {
       return false;
+    } else if (departureTime.value !== checkInTime.value) {
+      return false;
     } else {
       return true;
     }
@@ -77,15 +81,20 @@ adForm.addEventListener('submit', (evt) => {
 
 selectType.addEventListener('change', () => {
   if(selectType.value === 'bungalow') {
+    priceInput.min = '0';
     priceInput.placeholder = '0';
   } else if (selectType.value === 'flat') {
     priceInput.placeholder = '1000';
+    priceInput.min = '1000';
   } else if (selectType.value === 'hotel') {
     priceInput.placeholder = '3000';
+    priceInput.min = '3000';
   } else if (selectType.value === 'house') {
     priceInput.placeholder = '5000';
+    priceInput.min = '5000';
   } else if (selectType.value === 'palace') {
     priceInput.placeholder = '10000';
+    priceInput.min = '10000';
   }
 });
 
@@ -115,6 +124,45 @@ roomCount.addEventListener('change', () => {
     twoPeople.removeAttribute('selected');
     threePeople.removeAttribute('selected');
     manyPeople.setAttribute('selected', true);
+  }
+});
+
+const checkInTime12 = checkInTime.querySelector('option[value="12:00"]');
+const checkInTime13 = checkInTime.querySelector('option[value="13:00"]');
+const checkInTime14 = checkInTime.querySelector('option[value="14:00"]');
+
+const departureTime12 = departureTime.querySelector('option[value="12:00"]');
+const departureTime13 = departureTime.querySelector('option[value="13:00"]');
+const departureTime14 = departureTime.querySelector('option[value="14:00"]');
+
+departureTime.addEventListener('change', () => {
+  if (departureTime.value === '12:00') {
+    checkInTime12.setAttribute('selected', true);
+    checkInTime13.removeAttribute('selected');
+    checkInTime14.removeAttribute('selected');
+  } else if (departureTime.value === '13:00') {
+    checkInTime13.setAttribute('selected', true);
+    checkInTime12.removeAttribute('selected');
+    checkInTime14.removeAttribute('selected');
+  } else if (departureTime.value === '14:00') {
+    checkInTime14.setAttribute('selected', true);
+    checkInTime12.removeAttribute('selected');
+    checkInTime13.removeAttribute('selected');
+  }
+});
+checkInTime.addEventListener('change', () => {
+  if (checkInTime.value === '12:00') {
+    departureTime12.setAttribute('selected', true);
+    departureTime13.removeAttribute('selected');
+    departureTime14.removeAttribute('selected');
+  } else if (checkInTime.value === '13:00') {
+    departureTime13.setAttribute('selected', true);
+    departureTime12.removeAttribute('selected');
+    departureTime14.removeAttribute('selected');
+  } else if (checkInTime.value === '14:00') {
+    departureTime14.setAttribute('selected', true);
+    departureTime12.removeAttribute('selected');
+    departureTime13.removeAttribute('selected');
   }
 });
 
