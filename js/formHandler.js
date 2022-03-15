@@ -57,11 +57,16 @@ adForm.addEventListener('submit', (evt) => {
       (value === '3' && (guestCount.value > '3' || guestCount.value === '0') ) ||
       (value === '100' && guestCount.value !== '0')) {
       return false;
+    } else if ((selectType.value === 'bungalow' && priceInput.value < 0) ||
+      (selectType.value === 'flat' && priceInput.value < 1000) ||
+      (selectType.value === 'hotel' && priceInput.value < 3000) ||
+      (selectType.value === 'house' && priceInput.value < 5000) ||
+      (selectType.value === 'palace' && priceInput.value < 10000)) {
+      return false;
     } else {
       return true;
     }
   });
-
   const valid = pristine.validate();
   if (valid) {
     successNotification();
@@ -84,15 +89,32 @@ selectType.addEventListener('change', () => {
   }
 });
 
+const oneMan = guestCount.querySelector('option[value="1"]');
+const twoPeople = guestCount.querySelector('option[value="2"]');
+const threePeople = guestCount.querySelector('option[value="3"]');
+const manyPeople = guestCount.querySelector('option[value="0"]');
+
 roomCount.addEventListener('change', () => {
-  if(roomCount.value === 1) {
-    guestCount.querySelector('#capacity:nth-child(1)').setAttribute('selected', true);
-  } else if (roomCount.value === 2) {
-    guestCount.querySelector('#capacity:nth-child(2)').setAttribute('selected', true);
-  } else if (roomCount.value === 3) {
-    guestCount.querySelector('#capacity:nth-child(3)').setAttribute('selected', true);
-  } else if (roomCount.value === 100) {
-    guestCount.querySelector('#capacity:nth-child(4)').setAttribute('selected', true);
+  if(roomCount.value === '1') {
+    oneMan.setAttribute('selected', true);
+    twoPeople.removeAttribute('selected');
+    threePeople.removeAttribute('selected');
+    manyPeople.removeAttribute('selected');
+  } else if (roomCount.value === '2') {
+    oneMan.removeAttribute('selected');
+    threePeople.removeAttribute('selected');
+    manyPeople.removeAttribute('selected');
+    twoPeople.setAttribute('selected', true);
+  } else if (roomCount.value === '3') {
+    oneMan.removeAttribute('selected');
+    twoPeople.removeAttribute('selected');
+    manyPeople.removeAttribute('selected');
+    threePeople.setAttribute('selected', true);
+  } else if (roomCount.value === '100') {
+    oneMan.removeAttribute('selected');
+    twoPeople.removeAttribute('selected');
+    threePeople.removeAttribute('selected');
+    manyPeople.setAttribute('selected', true);
   }
 });
 
