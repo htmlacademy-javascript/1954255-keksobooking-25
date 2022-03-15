@@ -4,6 +4,8 @@ const mapFiltersForm = document.querySelector('.map__filters');
 const mapFiltersFormElements =  mapFiltersForm.querySelectorAll('fieldset, select');
 const roomCount = adForm.querySelector('#room_number');
 const guestCount = adForm.querySelector('#capacity');
+const selectType = adForm.querySelector('select[name=type]');
+const priceInput = adForm.querySelector('input[name=price]');
 
 const errorNotification = () => {
   const errorTemplate = document.querySelector('#error').content;
@@ -68,6 +70,31 @@ adForm.addEventListener('submit', (evt) => {
   }
 });
 
+selectType.addEventListener('change', () => {
+  if(selectType.value === 'bungalow') {
+    priceInput.placeholder = '0';
+  } else if (selectType.value === 'flat') {
+    priceInput.placeholder = '1000';
+  } else if (selectType.value === 'hotel') {
+    priceInput.placeholder = '3000';
+  } else if (selectType.value === 'house') {
+    priceInput.placeholder = '5000';
+  } else if (selectType.value === 'palace') {
+    priceInput.placeholder = '10000';
+  }
+});
+
+roomCount.addEventListener('change', () => {
+  if(roomCount.value === 1) {
+    guestCount.querySelector('#capacity:nth-child(1)').setAttribute('selected', true);
+  } else if (roomCount.value === 2) {
+    guestCount.querySelector('#capacity:nth-child(2)').setAttribute('selected', true);
+  } else if (roomCount.value === 3) {
+    guestCount.querySelector('#capacity:nth-child(3)').setAttribute('selected', true);
+  } else if (roomCount.value === 100) {
+    guestCount.querySelector('#capacity:nth-child(4)').setAttribute('selected', true);
+  }
+});
+
 pageDeactivator();
 pageActivator();
-
