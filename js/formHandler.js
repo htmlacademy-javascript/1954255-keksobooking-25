@@ -9,6 +9,29 @@ const priceInput = adForm.querySelector('input[name=price]');
 const departureTime = adForm.querySelector('#timein');
 const checkInTime = adForm.querySelector('#timeout');
 
+const modeOff = 0;
+const modeOn = 1;
+
+const roomCount1 = '1';
+const roomCount2 = '2';
+const roomCount3 = '3';
+const roomCount100 = '100';
+
+const guestCount1 = '1';
+const guestCount2 = '2';
+const guestCount3 = '3';
+const guestCount0 = '0';
+
+const bungalowMinPrice = 0;
+const flatMinPrice = 1000;
+const hotelMinPrice = 3000;
+const houseMinPrice = 5000;
+const palaceMinPrice = 10000;
+
+const time12 = '12:00';
+const time13 = '13:00';
+const time14 = '14:00';
+
 const errorNotification = () => {
   const errorTemplate = document.querySelector('#error').content;
   const errorItem = errorTemplate.querySelector('.error').cloneNode(true);
@@ -25,11 +48,11 @@ const successNotification = () => {
 };
 
 const formActiveSwitch = (items, mode) => {
-  if (mode === 0) {
+  if (mode === modeOff) {
     items.forEach((item) => {
       item.setAttribute('disabled', 'disabled');
     });
-  } else if (mode === 1) {
+  } else if (mode === modeOn) {
     items.forEach((item) => {
       item.removeAttribute('disabled');
     });
@@ -38,32 +61,32 @@ const formActiveSwitch = (items, mode) => {
 
 const pageDeactivator = () => {
   adForm.classList.add('ad-form--disabled');
-  formActiveSwitch(adFormElements, 0);
+  formActiveSwitch(adFormElements, modeOff);
   mapFiltersForm.classList.add('.map__filters--disabled');
-  formActiveSwitch(mapFiltersFormElements, 0);
+  formActiveSwitch(mapFiltersFormElements, modeOff);
 };
 
 const pageActivator = () => {
   adForm.classList.remove('ad-form--disabled');
-  formActiveSwitch(adFormElements, 1);
+  formActiveSwitch(adFormElements, modeOn);
   mapFiltersForm.classList.remove('.map__filters--disabled');
-  formActiveSwitch(mapFiltersFormElements, 1);
+  formActiveSwitch(mapFiltersFormElements, modeOn);
 };
 
 const pristine = new Pristine(adForm);
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.addValidator(roomCount, (value) => {
-    if ((value === '1' && (guestCount.value > '1' || guestCount.value === '0') ) ||
-      (value === '2' && (guestCount.value > '2' || guestCount.value === '0') ) ||
-      (value === '3' && (guestCount.value > '3' || guestCount.value === '0') ) ||
-      (value === '100' && guestCount.value !== '0')) {
+    if ((value === roomCount1 && (guestCount.value > guestCount1 || guestCount.value === guestCount0) ) ||
+      (value === roomCount2 && (guestCount.value > guestCount2 || guestCount.value === guestCount0) ) ||
+      (value === roomCount3 && (guestCount.value > guestCount3 || guestCount.value === guestCount0) ) ||
+      (value === roomCount100 && guestCount.value !== guestCount0)) {
       return false;
-    } else if ((selectType.value === 'bungalow' && priceInput.value < 0) ||
-      (selectType.value === 'flat' && priceInput.value < 1000) ||
-      (selectType.value === 'hotel' && priceInput.value < 3000) ||
-      (selectType.value === 'house' && priceInput.value < 5000) ||
-      (selectType.value === 'palace' && priceInput.value < 10000)) {
+    } else if ((selectType.value === 'bungalow' && priceInput.value < bungalowMinPrice) ||
+      (selectType.value === 'flat' && priceInput.value < flatMinPrice) ||
+      (selectType.value === 'hotel' && priceInput.value < hotelMinPrice) ||
+      (selectType.value === 'house' && priceInput.value < houseMinPrice) ||
+      (selectType.value === 'palace' && priceInput.value < palaceMinPrice)) {
       return false;
     } else if (departureTime.value !== checkInTime.value) {
       return false;
@@ -81,45 +104,45 @@ adForm.addEventListener('submit', (evt) => {
 
 selectType.addEventListener('change', () => {
   if(selectType.value === 'bungalow') {
-    priceInput.min = '0';
-    priceInput.placeholder = '0';
+    priceInput.min = bungalowMinPrice;
+    priceInput.placeholder = bungalowMinPrice;
   } else if (selectType.value === 'flat') {
-    priceInput.placeholder = '1000';
-    priceInput.min = '1000';
+    priceInput.placeholder = flatMinPrice;
+    priceInput.min = flatMinPrice;
   } else if (selectType.value === 'hotel') {
-    priceInput.placeholder = '3000';
-    priceInput.min = '3000';
+    priceInput.placeholder = hotelMinPrice;
+    priceInput.min = hotelMinPrice;
   } else if (selectType.value === 'house') {
-    priceInput.placeholder = '5000';
-    priceInput.min = '5000';
+    priceInput.placeholder = houseMinPrice;
+    priceInput.min = houseMinPrice;
   } else if (selectType.value === 'palace') {
-    priceInput.placeholder = '10000';
-    priceInput.min = '10000';
+    priceInput.placeholder = palaceMinPrice;
+    priceInput.min = palaceMinPrice;
   }
 });
 
-const oneMan = guestCount.querySelector('option[value="1"]');
-const twoPeople = guestCount.querySelector('option[value="2"]');
-const threePeople = guestCount.querySelector('option[value="3"]');
-const manyPeople = guestCount.querySelector('option[value="0"]');
+const oneMan = guestCount.querySelector(`option[value="${ guestCount1 }"]`);
+const twoPeople = guestCount.querySelector(`option[value="${ guestCount2 }"]`);
+const threePeople = guestCount.querySelector(`option[value="${ guestCount3 }"]`);
+const manyPeople = guestCount.querySelector(`option[value="${ guestCount0 }"]`);
 
 roomCount.addEventListener('change', () => {
-  if(roomCount.value === '1') {
+  if(roomCount.value === roomCount1) {
     oneMan.setAttribute('selected', true);
     twoPeople.removeAttribute('selected');
     threePeople.removeAttribute('selected');
     manyPeople.removeAttribute('selected');
-  } else if (roomCount.value === '2') {
+  } else if (roomCount.value === roomCount2) {
     oneMan.removeAttribute('selected');
     threePeople.removeAttribute('selected');
     manyPeople.removeAttribute('selected');
     twoPeople.setAttribute('selected', true);
-  } else if (roomCount.value === '3') {
+  } else if (roomCount.value === roomCount3) {
     oneMan.removeAttribute('selected');
     twoPeople.removeAttribute('selected');
     manyPeople.removeAttribute('selected');
     threePeople.setAttribute('selected', true);
-  } else if (roomCount.value === '100') {
+  } else if (roomCount.value === roomCount100) {
     oneMan.removeAttribute('selected');
     twoPeople.removeAttribute('selected');
     threePeople.removeAttribute('selected');
@@ -127,39 +150,39 @@ roomCount.addEventListener('change', () => {
   }
 });
 
-const checkInTime12 = checkInTime.querySelector('option[value="12:00"]');
-const checkInTime13 = checkInTime.querySelector('option[value="13:00"]');
-const checkInTime14 = checkInTime.querySelector('option[value="14:00"]');
+const checkInTime12 = checkInTime.querySelector(`option[value="${ time12 }"]`);
+const checkInTime13 = checkInTime.querySelector(`option[value="${ time13 }"]`);
+const checkInTime14 = checkInTime.querySelector(`option[value="${ time14 }"]`);
 
-const departureTime12 = departureTime.querySelector('option[value="12:00"]');
-const departureTime13 = departureTime.querySelector('option[value="13:00"]');
-const departureTime14 = departureTime.querySelector('option[value="14:00"]');
+const departureTime12 = departureTime.querySelector(`option[value="${ time12 }"]`);
+const departureTime13 = departureTime.querySelector(`option[value="${ time13 }"]`);
+const departureTime14 = departureTime.querySelector(`option[value="${ time14 }"]`);
 
 departureTime.addEventListener('change', () => {
-  if (departureTime.value === '12:00') {
+  if (departureTime.value === time12) {
     checkInTime12.setAttribute('selected', true);
     checkInTime13.removeAttribute('selected');
     checkInTime14.removeAttribute('selected');
-  } else if (departureTime.value === '13:00') {
+  } else if (departureTime.value === time13) {
     checkInTime13.setAttribute('selected', true);
     checkInTime12.removeAttribute('selected');
     checkInTime14.removeAttribute('selected');
-  } else if (departureTime.value === '14:00') {
+  } else if (departureTime.value === time14) {
     checkInTime14.setAttribute('selected', true);
     checkInTime12.removeAttribute('selected');
     checkInTime13.removeAttribute('selected');
   }
 });
 checkInTime.addEventListener('change', () => {
-  if (checkInTime.value === '12:00') {
+  if (checkInTime.value === time12) {
     departureTime12.setAttribute('selected', true);
     departureTime13.removeAttribute('selected');
     departureTime14.removeAttribute('selected');
-  } else if (checkInTime.value === '13:00') {
+  } else if (checkInTime.value === time13) {
     departureTime13.setAttribute('selected', true);
     departureTime12.removeAttribute('selected');
     departureTime14.removeAttribute('selected');
-  } else if (checkInTime.value === '14:00') {
+  } else if (checkInTime.value === time14) {
     departureTime14.setAttribute('selected', true);
     departureTime12.removeAttribute('selected');
     departureTime13.removeAttribute('selected');
