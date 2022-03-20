@@ -190,4 +190,5 @@ checkInTime.addEventListener('change', () => {
 });
 
 pageDeactivator();
-pageActivator();
+
+export { pageActivator };
