@@ -1,5 +1,5 @@
 import { pageActivator } from './formHandler.js';
-import { offerData, popupDomGenerator } from './markupGenerator.js';
+import { popupDomGenerator } from './markupGenerator.js';
 const tokyoCentreLat = 35.6895;
 const tokyoCentreLng = 139.692;
 const addresLine = document.querySelector('#address');
@@ -33,21 +33,6 @@ const secondaryPinIcon = L.icon({
   iconAnchor: [26, 52],
 });
 
-// const contenter = '<article class="popup">\n' +
-//   '      \n' +
-//   '      <h3 class="popup__title">У нас бесплатные завтраки!</h3>\n' +
-//   '      <p class="popup__text popup__text--address">35.67003,139.75772</p>\n' +
-//   '      <p class="popup__text popup__text--price">80231 ₽/ночь</p>\n' +
-//   '      <h4 class="popup__type">Бунгало</h4>\n' +
-//   '      <p class="popup__text popup__text--capacity">10 комнаты для 82 гостей</p>\n' +
-//   '      <p class="popup__text popup__text--time">12:00, выезд до 12:00</p>\n' +
-//   '      <ul class="popup__features">conditioner, parking, wifi, elevator, washer, dishwasher</ul>\n' +
-//   '      <p class="popup__description">Красивые стены, очень много места!</p>\n' +
-//   '      <div class="popup__photos">\n' +
-//   '        \n' +
-//   '      <img src="https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg" class="popup__photo" width="45" height="40" alt="Фотография жилья"><img src="https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg" class="popup__photo" width="45" height="40" alt="Фотография жилья"></div>\n' +
-//   '    </article>';
-
 const marker = L.marker(
   {
     lat: tokyoCentreLat,
@@ -69,25 +54,29 @@ marker.on('moveend', (evt) => {
   addresLine.value = `${lat  }, ${  lng}`;
 });
 
-for (let i = 0; i < offerData.length; i++) {
-  const offerLocation = {
-    lat: offerData[i].location.lat,
-    lng: offerData[i].location.lng
-  };
-  const {lat, lng} = offerLocation;
-  const html = popupDomGenerator(offerData[i]);
-  const points = L.marker(
+const addPinToMap = (offerArray) => {
+  for (let i = 0; i < offerArray.length; i++) {
+    const offerLocation = {
+      lat: offerArray[i].location.lat,
+      lng: offerArray[i].location.lng
+    };
+    const {lat, lng} = offerLocation;
+    const html = popupDomGenerator(offerArray[i]);
+    const points = L.marker(
+      {
+        lat,
+        lng,
+      },
+      {
+        secondaryPinIcon,
+      },
+    );
     {
-      lat,
-      lng,
-    },
-    {
-      secondaryPinIcon,
-    },
-  );
-  {
-    points
-      .bindPopup(html)
-      .addTo(map);
+      points
+        .bindPopup(html)
+        .addTo(map);
+    }
   }
-}
+};
+
+export { addPinToMap };

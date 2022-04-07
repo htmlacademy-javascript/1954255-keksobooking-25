@@ -1,6 +1,4 @@
-import { getLittleOffer } from './offer-util.js';
 import { findEmptyField, getOfferTypeTranslate } from './markupGeneratorFunctions.js';
-const offerData = getLittleOffer(10);
 
 const cardTemplate = document.querySelector('#card').content;
 const popupDomGenerator = (offerElement) => {
@@ -11,8 +9,9 @@ const popupDomGenerator = (offerElement) => {
   card.querySelector('.popup__type').textContent = getOfferTypeTranslate(offerElement.offer.type);
   card.querySelector('.popup__text--capacity').textContent = `${offerElement.offer.rooms} комнаты для ${offerElement.offer.guests} гостей`;
   card.querySelector('.popup__text--time').textContent = `${offerElement.offer.checkin}, выезд до ${offerElement.offer.checkout}`;
-  card.querySelector('.popup__features').textContent = offerElement.offer.features.join(', ');
-  card.querySelector('.popup__description').textContent = offerElement.offer.description;
+  if (offerElement.offer.features) {
+    card.querySelector('.popup__features').textContent = offerElement.offer.features.join(', ');
+  }
   {
     const photoGallery = card.querySelector('.popup__photos');
     let element;
@@ -27,5 +26,5 @@ const popupDomGenerator = (offerElement) => {
   return card;
 };
 
-export { offerData, popupDomGenerator};
+export { popupDomGenerator};
 
