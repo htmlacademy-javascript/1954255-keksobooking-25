@@ -37,12 +37,23 @@ const errorNotification = () => {
   const errorItem = errorTemplate.querySelector('.error').cloneNode(true);
   const button = errorItem.querySelector('button');
   button.addEventListener('click', () => errorItem.remove() );
+  document.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
+      errorItem.remove();
+    }
+  });
+  errorItem.addEventListener('click', () => errorItem.remove() );
   document.body.appendChild(errorItem);
 };
 
 const successNotification = () => {
   const successTemplate = document.querySelector('#success').content;
   const successItem = successTemplate.querySelector('.success').cloneNode(true);
+  document.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
+      successItem.remove();
+    }
+  });
   successItem.addEventListener('click', () => successItem.remove() );
   document.body.appendChild(successItem);
 };
@@ -96,7 +107,17 @@ adForm.addEventListener('submit', (evt) => {
   });
   const valid = pristine.validate();
   if (valid) {
-    successNotification();
+    fetch('https://25.javascript.pages.academy/keksobooking', {
+      method: 'POST',
+      body: new FormData(adForm)
+    }).then((response) => {
+      if (response.ok) {
+        successNotification();
+        adForm.reset();
+      } else {
+        errorNotification();
+      }
+    });
   } else {
     errorNotification();
   }
