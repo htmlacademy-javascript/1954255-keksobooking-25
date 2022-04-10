@@ -11,6 +11,8 @@ const washerCheckBox = filterForm.querySelector('#filter-washer');
 const elevatorCheckBox = filterForm.querySelector('#filter-elevator');
 const conditionerCheckBox = filterForm.querySelector('#filter-conditioner');
 
+const TIMEOUT_DELAY = 500;
+
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
@@ -89,7 +91,7 @@ const mainMapFilterFunction = (array, pinToMapFunction) => {
   const arrayFromFetch = array.slice();
   for (let i = 0; i < filterSettingsArray.length; i++) {
     filterSettingsArray[i].addEventListener('change', () => {
-      const debouncedFunction = debounce(megaMapFilter, 500);
+      const debouncedFunction = debounce(megaMapFilter, TIMEOUT_DELAY);
       debouncedFunction(arrayFromFetch, pinToMapFunction);
     });
   }
