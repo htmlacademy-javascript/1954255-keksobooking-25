@@ -1,11 +1,14 @@
 import { addPinToMap } from './map-conf.js';
 import { pageActivator } from './formHandler.js';
+import { mainMapFilterFunction } from './pinFilter.js';
 
+const URL = 'https://25.javascript.pages.academy/keksobooking/data';
 
-fetch('https://25.javascript.pages.academy/keksobooking/data')
+fetch(URL)
   .then((response) => {
     if (response.ok) {
       response.json().then((data) => {
+        mainMapFilterFunction(data, addPinToMap);
         addPinToMap(data);
         pageActivator();
       });

@@ -1,9 +1,12 @@
 import { pageActivator } from './formHandler.js';
 import { popupDomGenerator } from './markupGenerator.js';
+
+const maxPinCount = 10;
 const tokyoCentreLat = 35.6895;
 const tokyoCentreLng = 139.692;
 const addresLine = document.querySelector('#address');
 addresLine.value = `${tokyoCentreLat  }, ${  tokyoCentreLng}`;
+
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -54,28 +57,42 @@ marker.on('moveend', (evt) => {
   addresLine.value = `${lat  }, ${  lng}`;
 });
 
+const pinArray = [];
 const addPinToMap = (offerArray) => {
-  for (let i = 0; i < offerArray.length; i++) {
-    const offerLocation = {
-      lat: offerArray[i].location.lat,
-      lng: offerArray[i].location.lng
-    };
-    const {lat, lng} = offerLocation;
-    const html = popupDomGenerator(offerArray[i]);
-    const points = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        secondaryPinIcon,
-      },
-    );
-    {
-      points
-        .bindPopup(html)
-        .addTo(map);
+  const insertPinToMap = (similarArray) => {
+    for (let i = 0; i < pinArray.length; i++) {
+      map.removeLayer(pinArray[i]);
     }
+    for (let i = 0; i < similarArray.length; i++) {
+      const offerLocation = {
+        lat: similarArray[i].location.lat,
+        lng: similarArray[i].location.lng
+      };
+      const {lat, lng} = offerLocation;
+      const html = popupDomGenerator(similarArray[i]);
+
+      const points = L.marker(
+        {
+          lat,
+          lng,
+        },
+        {
+          secondaryPinIcon,
+        },
+      );
+      {
+        points
+          .bindPopup(html)
+          .addTo(map);
+      }
+      pinArray.push(points);
+    }
+  };
+
+  if (offerArray.length > maxPinCount) {
+    insertPinToMap(offerArray.slice(0, maxPinCount));
+  } else {
+    insertPinToMap(offerArray);
   }
 };
 
