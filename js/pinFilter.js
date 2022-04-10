@@ -43,13 +43,13 @@ const megaMapFilter = (arrayFromFetch, pinToMapFunction) => {
   if (roomCountSelector.value === 'any') {
     filteredArray = filteredArray.slice();
   } else {
-    filteredArray = filteredArray.filter((elem) => elem.offer.rooms == roomCountSelector.value);
+    filteredArray = filteredArray.filter((elem) => elem.offer.rooms === parseInt(roomCountSelector.value, 10));
   }
   //guest count filter
   if (guestCountSelector.value === 'any') {
     filteredArray = filteredArray.slice();
   } else {
-    filteredArray = filteredArray.filter((elem) => elem.offer.guests == guestCountSelector.value);
+    filteredArray = filteredArray.filter((elem) => elem.offer.guests === parseInt(guestCountSelector.value, 10));
   }
   //checkbox filter
   if (wifiCheckBox.checked === true) {
