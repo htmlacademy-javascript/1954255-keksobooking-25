@@ -1,8 +1,8 @@
 import { addPinToMap } from './map-conf.js';
 import { pageActivator } from './formHandler.js';
+const SERVER_URL= 'https://25.javascript.pages.academy/keksobooking/data';
 
-
-fetch('https://25.javascript.pages.academy/keksobooking/data')
+fetch(SERVER_URL)
   .then((response) => {
     if (response.ok) {
       response.json().then((data) => {

@@ -103,35 +103,16 @@ adFormElement.addEventListener('submit', (evt) => {
     } else {
       return departureTimeElement.value === checkInTimeElement.value;
     }
-    // eslint-disable-next-line no-unreachable
-    const valid = pristine.validate();
-    if (valid) {
-      fetch(addOfferServerURL, {
-        method: 'POST',
-        body: new FormData(adFormElement)
-      }).then((response) => {
-        if (response.ok) {
-          successNotification();
-          adFormElement.reset();
-        } else {
-          errorNotification();
-        }
-      });
-      // eslint-disable-next-line no-unreachable
-    } else {
-      errorNotification();
-    }
   });
-<<<<<<< HEAD
   const valid = pristine.validate();
   if (valid) {
     fetch('https://25.javascript.pages.academy/keksobooking', {
       method: 'POST',
-      body: new FormData(adForm)
+      body: new FormData(adFormElement)
     }).then((response) => {
       if (response.ok) {
         successNotification();
-        adForm.reset();
+        adFormElement.reset();
       } else {
         errorNotification();
       }
@@ -139,8 +120,6 @@ adFormElement.addEventListener('submit', (evt) => {
   } else {
     errorNotification();
   }
-=======
->>>>>>> e697117 (Внес изменения после сдачи проекта)
 });
 
 selectTypeElement.addEventListener('change', () => {
