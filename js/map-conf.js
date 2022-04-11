@@ -1,14 +1,11 @@
 import { pageActivator } from './formHandler.js';
 import { popupDomGenerator } from './markupGenerator.js';
-<<<<<<< HEAD
 const tokyoCentreLat = 35.6895;
 const tokyoCentreLng = 139.692;
-=======
 
 const maxPinCount = 10;
 const tokyoCentreLat = 35.68963;
 const tokyoCentreLng = 139.69234;
->>>>>>> e697117 (Внес изменения после сдачи проекта)
 const addresLine = document.querySelector('#address');
 addresLine.value = `${tokyoCentreLat  }, ${  tokyoCentreLng}`;
 
@@ -83,15 +80,12 @@ const addPinToMap = (offerArray) => {
         .bindPopup(html)
         .addTo(map);
     }
-<<<<<<< HEAD
   }
-=======
-  };
+};
 
   if (offerArray.length > maxPinCount) {
     insertPinToMap(offerArray.slice(0, maxPinCount));
   } else { insertPinToMap(offerArray); }
->>>>>>> e697117 (Внес изменения после сдачи проекта)
 };
 
 export { addPinToMap };
