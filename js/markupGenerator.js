@@ -3,12 +3,24 @@ import { findEmptyField, getOfferTypeTranslate } from './markupGeneratorFunction
 const cardTemplate = document.querySelector('#card').content;
 const popupDomGenerator = (offerElement) => {
   const card = cardTemplate.cloneNode(true);
-  card.querySelector('.popup__title').textContent = offerElement.offer.title;
-  card.querySelector('.popup__text--address').textContent = offerElement.offer.address;
-  card.querySelector('.popup__text--price').textContent = `${offerElement.offer.price} ₽/ночь`;
-  card.querySelector('.popup__type').textContent = getOfferTypeTranslate(offerElement.offer.type);
-  card.querySelector('.popup__text--capacity').textContent = `${offerElement.offer.rooms} комнаты для ${offerElement.offer.guests} гостей`;
-  card.querySelector('.popup__text--time').textContent = `${offerElement.offer.checkin}, выезд до ${offerElement.offer.checkout}`;
+  if (offerElement.offer.title) {
+    card.querySelector('.popup__title').textContent = offerElement.offer.title;
+  }
+  if (offerElement.offer.address) {
+    card.querySelector('.popup__text--address').textContent = offerElement.offer.address;
+  }
+  if (offerElement.offer.price) {
+    card.querySelector('.popup__text--price').textContent = `${offerElement.offer.price} ₽/ночь`;
+  }
+  if (offerElement.offer.type) {
+    card.querySelector('.popup__type').textContent = getOfferTypeTranslate(offerElement.offer.type);
+  }
+  if (offerElement.offer.rooms && offerElement.offer.guests) {
+    card.querySelector('.popup__text--capacity').textContent = `${offerElement.offer.rooms} комнаты для ${offerElement.offer.guests} гостей`;
+  }
+  if (offerElement.offer.checkin && offerElement.offer.checkout) {
+    card.querySelector('.popup__text--time').textContent = `${offerElement.offer.checkin}, выезд до ${offerElement.offer.checkout}`;
+  }
   if (offerElement.offer.features) {
     card.querySelector('.popup__features').textContent = offerElement.offer.features.join(', ');
   }

@@ -12,6 +12,8 @@ const elevatorCheckBox = filterForm.querySelector('#filter-elevator');
 const conditionerCheckBox = filterForm.querySelector('#filter-conditioner');
 
 const TIMEOUT_DELAY = 500;
+const mediumPriceMin = 10000;
+const mediumPriceMax = 50000;
 
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
@@ -33,11 +35,11 @@ const megaMapFilter = (arrayFromFetch, pinToMapFunction) => {
   if (maxPriceSelector.value === 'any') {
     filteredArray = filteredArray.slice();
   } else if (maxPriceSelector.value === 'low') {
-    filteredArray = filteredArray.filter((item) => item.offer.price < 10000);
+    filteredArray = filteredArray.filter((item) => item.offer.price < mediumPriceMin);
   } else if (maxPriceSelector.value === 'middle') {
-    filteredArray = filteredArray.filter((item) => item.offer.price >= 10000 && item.offer.price < 50000);
+    filteredArray = filteredArray.filter((item) => item.offer.price >= mediumPriceMin && item.offer.price < mediumPriceMax);
   } else if (maxPriceSelector.value === 'high') {
-    filteredArray = filteredArray.filter((item) => item.offer.price > 50000);
+    filteredArray = filteredArray.filter((item) => item.offer.price > mediumPriceMax);
   }
   //room count filter
   if (roomCountSelector.value === 'any') {

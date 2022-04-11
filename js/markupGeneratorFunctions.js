@@ -15,13 +15,9 @@ const getOfferTypeTranslate = function (offerTypeEng) {
 
 const fieldFilter = (field) => {
   if(field.tagName === 'img') {
-    if(field.src === '') {
-      field.remove();
-    }
+    if(field.src === '') { field.remove(); }
   } else {
-    if(field.textContent === '') {
-      field.remove();
-    }
+    if(field.textContent === '') { field.remove(); }
   }
 };
 

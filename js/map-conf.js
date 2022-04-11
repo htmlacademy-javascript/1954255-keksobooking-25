@@ -2,8 +2,8 @@ import { pageActivator } from './formHandler.js';
 import { popupDomGenerator } from './markupGenerator.js';
 
 const maxPinCount = 10;
-const tokyoCentreLat = 35.6895;
-const tokyoCentreLng = 139.692;
+const tokyoCentreLat = 35.68963;
+const tokyoCentreLng = 139.69234;
 const addresLine = document.querySelector('#address');
 addresLine.value = `${tokyoCentreLat  }, ${  tokyoCentreLng}`;
 
@@ -91,9 +91,7 @@ const addPinToMap = (offerArray) => {
 
   if (offerArray.length > maxPinCount) {
     insertPinToMap(offerArray.slice(0, maxPinCount));
-  } else {
-    insertPinToMap(offerArray);
-  }
+  } else { insertPinToMap(offerArray); }
 };
 
 export { addPinToMap };
