@@ -107,25 +107,23 @@ adFormElement.addEventListener('submit', (evt) => {
     } else {
       return departureTimeElement.value === checkInTimeElement.value;
     }
-    // eslint-disable-next-line no-unreachable
-    const valid = pristine.validate();
-    if (valid) {
-      fetch(addOfferServerURL, {
-        method: 'POST',
-        body: new FormData(adFormElement)
-      }).then((response) => {
-        if (response.ok) {
-          successNotification();
-          adFormElement.reset();
-        } else {
-          errorNotification();
-        }
-      });
-      // eslint-disable-next-line no-unreachable
-    } else {
-      errorNotification();
-    }
   });
+  const valid = pristine.validate();
+  if (valid) {
+    fetch(addOfferServerURL, {
+      method: 'POST',
+      body: new FormData(adFormElement)
+    }).then((response) => {
+      if (response.ok) {
+        successNotification();
+        adFormElement.reset();
+      } else {
+        errorNotification();
+      }
+    });
+  } else {
+    errorNotification();
+  }
 });
 
 selectTypeElement.addEventListener('change', () => {
