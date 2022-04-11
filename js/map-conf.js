@@ -81,7 +81,6 @@ const addPinToMap = (data) => {
       }
     }
   };
-
   if (data.length > maxPinCount) {
     insertPinToMap(data.slice(0, maxPinCount));
   } else { insertPinToMap(data); }
