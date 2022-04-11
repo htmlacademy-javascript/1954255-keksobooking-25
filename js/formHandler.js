@@ -33,13 +33,17 @@ const time12 = '12:00';
 const time13 = '13:00';
 const time14 = '14:00';
 
+const escButtonKeyCode = 27;
+
+const addOfferServerURL = 'https://25.javascript.pages.academy/keksobooking';
+
 const errorNotification = () => {
   const errorTemplate = document.querySelector('#error').content;
   const errorItem = errorTemplate.querySelector('.error').cloneNode(true);
   const button = errorItem.querySelector('button');
   button.addEventListener('click', () => errorItem.remove() );
   document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === escButtonKeyCode) {
       errorItem.remove();
     }
   });
@@ -51,7 +55,7 @@ const successNotification = () => {
   const successTemplate = document.querySelector('#success').content;
   const successItem = successTemplate.querySelector('.success').cloneNode(true);
   document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === escButtonKeyCode) {
       successItem.remove();
     }
   });
@@ -106,7 +110,7 @@ adFormElement.addEventListener('submit', (evt) => {
   });
   const valid = pristine.validate();
   if (valid) {
-    fetch('https://25.javascript.pages.academy/keksobooking', {
+    fetch(addOfferServerURL, {
       method: 'POST',
       body: new FormData(adFormElement)
     }).then((response) => {
