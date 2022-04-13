@@ -9,9 +9,15 @@ const priceInputElement = adFormElement.querySelector('input[name=price]');
 const departureTimeElement = adFormElement.querySelector('#timein');
 const checkInTimeElement = adFormElement.querySelector('#timeout');
 
+const avatarInput = adFormElement.querySelector('#avatar');
+const avatarPreview = adFormElement.querySelector('.ad-form-header__preview');
+const photoInput = adFormElement.querySelector('#images');
+const photoPreview = adFormElement.querySelector('.ad-form__photo');
+
+const fileTypes = ['gif', 'jpg', 'jpeg', 'png'];
+
 const modeOff = 0;
 const modeOn = 1;
-
 
 const roomCount1 = '1';
 const roomCount2 = '2';
@@ -212,6 +218,28 @@ checkInTimeElement.addEventListener('change', () => {
     departureTime13.removeAttribute('selected');
   }
 });
+
+const imagePreviewer = (input, previewElement, FILE_TYPES, sizeString) => {
+  input.addEventListener('change', () => {
+    const file = input.files[0];
+    const fileName = file.name.toLowerCase();
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    if (matches) {
+      const image = document.createElement('img');
+      image.style.height = sizeString;
+      image.style.width = sizeString;
+      image.src = URL.createObjectURL(file);
+      if (previewElement.querySelector('img')) {
+        previewElement.removeChild(previewElement.querySelector('img'));
+      }
+      previewElement.appendChild(image);
+    }
+  });
+};
+
+imagePreviewer(avatarInput, avatarPreview, fileTypes, '40px');
+imagePreviewer(photoInput, photoPreview, fileTypes, 'inherit');
+
 
 pageDeactivator();
 export { pageActivator };
